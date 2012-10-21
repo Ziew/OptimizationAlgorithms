@@ -1,3 +1,4 @@
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -29,7 +30,14 @@ public class Permutation {
 			y = rand.nextInt(numberOfValues_);
 		}
 		permutation_.put(x, y);
+		
 	}
-	
+	public int[] getValuesFromElement(){
+		int[] values = new int[permutation_.values().size()];
+		for(int i = 0; i < values.length ; i++){
+			values[i] = permutation_.get(i);
+		}
+		return values;
+	}
 
 }
