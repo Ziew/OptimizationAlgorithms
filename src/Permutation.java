@@ -32,8 +32,15 @@ public class Permutation {
 		permutation_.put(x, y);
 
 	}
+	
+	public void switchValues(int i, int j){
+		permutation_.put(i, j);
+
+	}
+	
+	
 	public int[] getValuesFromElement(){
-		int[] values = new int[permutation_.values().size()];
+		int[] values = new int[getNumberOfElements()];
 		for(int i = 0; i < values.length ; i++){
 			values[i] = permutation_.get(i);
 		}

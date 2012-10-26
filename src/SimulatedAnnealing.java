@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -49,14 +48,7 @@ public class SimulatedAnnealing implements IOptimizationAlgorithms, IObservable 
 		
 	}
 	
-	public static void main(String[] args) throws FileNotFoundException{
-		Matrix matrix = new Matrix();
-		matrix.loadMatrixFromFile("test.txt");
-		Permutation permutation = new Permutation(16, 30);
-		SimulatedAnnealing sa = new SimulatedAnnealing(matrix, permutation, 1000.0, 100, 0.9);
-		sa.calculate();		
-		
-	}
+	
 	
 	public Permutation getPermutation() {
 		return permutation_;
