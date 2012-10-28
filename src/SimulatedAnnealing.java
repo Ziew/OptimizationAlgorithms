@@ -10,6 +10,7 @@ public class SimulatedAnnealing implements IOptimizationAlgorithms, IObservable 
 	private double n_;
 	private int numberOfIteration_;
 	private float bestResult_;
+	
 	public SimulatedAnnealing(Matrix matrix, Permutation permutation,double temperature, int numberOfIteration, double n){
 		matrix_ = matrix;
 		permutation_ = permutation;
