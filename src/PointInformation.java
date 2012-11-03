@@ -3,12 +3,13 @@ public class PointInformation {
 	private int column_;
 	private int rows_;
 	private double probability_;
-	private float feromon_;
+	private double feromon_;
 	
-	public PointInformation(double probability ,int column, int rows){
+	public PointInformation(double probability ,int column, int rows, float feromon){
 		probability_ = probability;
 		column_ = column;
 		rows_ = rows;
+		feromon_ = feromon;
 	}
 	
 	public int getColumn(){
@@ -23,7 +24,15 @@ public class PointInformation {
 		return probability_;
 	}
 	
-	public float getFeromon(){
+	public double getFeromon(){
 		return feromon_;
+	}
+	
+	public void setProbability(double probability){
+		probability_ = probability;
+	}
+	
+	public void setFeromon(double d){
+		feromon_ = d;
 	}
 }
