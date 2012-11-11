@@ -25,7 +25,7 @@ public class CollectionPointInformation {
 			pointsInformation.put(i, new LinkedList<PointInformation>());
 			for(int j = 0; j < numberOfValues ; j++){
 				double z = (double)(j + 1);
-				pointsInformation.get(i).add(new PointInformation((z*0.03333333333333), i, j,1));
+				pointsInformation.get(i).add(new PointInformation((z*0.03333333333333), i, j,0.1));
 			}
 		}
 	}

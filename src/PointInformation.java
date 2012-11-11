@@ -5,7 +5,7 @@ public class PointInformation {
 	private double probability_;
 	private double feromon_;
 	
-	public PointInformation(double probability ,int column, int rows, float feromon){
+	public PointInformation(double probability ,int column, int rows, double feromon){
 		probability_ = probability;
 		column_ = column;
 		rows_ = rows;

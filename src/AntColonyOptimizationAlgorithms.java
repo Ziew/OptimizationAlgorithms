@@ -45,7 +45,9 @@ public class AntColonyOptimizationAlgorithms implements IOptimizationAlgorithms,
 				bestResult_ = MeanValueCalculator.calculate(matrix_, ants_.get(i).getPermutation());
 				notifyall();
 			}
-			cPF_.calculateFeromon();
+			for(int z = 0 ; z < numberOfAnts_; z++){
+			cPF_.calculateFeromon(ants_.get(z));
+			}
 			cPF_.calculateProbability();
 		}
 	}
@@ -69,13 +71,13 @@ public class AntColonyOptimizationAlgorithms implements IOptimizationAlgorithms,
 		for(IObservator o : observators_){
 			o.notif(this);
 		}
-
+		
 	}
 
 	public static void main(String[] args) throws FileNotFoundException{
 		Matrix matrix = new Matrix();
 		matrix.loadMatrixFromFile("test.txt");
-		AntColonyOptimizationAlgorithms a = new AntColonyOptimizationAlgorithms(16, 30, 10, 0.5, 1, matrix, 1, 1);
+		AntColonyOptimizationAlgorithms a = new AntColonyOptimizationAlgorithms(16, 30, 1, 0.3, 150, matrix, 1.0, 1.0);
 		a.calculate();
 	}
 
