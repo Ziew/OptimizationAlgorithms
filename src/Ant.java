@@ -6,20 +6,30 @@ public class Ant {
 
 	public Ant(int numberOfElements, int numberOfValues){
 		permutation_ = new Permutation(numberOfElements, numberOfValues);
-		
+
 	}
 	public void generatePermutation(CollectionPointInformation cPI){
 		Random rand = new Random();
 		for(int i = 0; i < permutation_.getNumberOfElements(); i++){
 			double randDouble = rand.nextDouble();
-			int j = 0;
-			while(randDouble < cPI.getPointsInformation(i, j).getProbability()){
-				j++;
+			for(int j =0 ; j < permutation_.getNumberOfValues(); j++){
+				//System.out.println("Probability = " + randDouble);
+				//System.out.println("{" + i + ", " + j +"}");
+				//System.out.println(cPI.getPointsInformation(i, j).getProbability());
+				if(cPI.getPointsInformation(i, j).getProbability() > randDouble){
+					if(j == 0){
+						permutation_.switchValues(i, j);
+					}
+					else{
+						permutation_.switchValues(i, j-1);
+					}
+					break;
+				}
+
 			}
-			permutation_.switchValues(i, j);
-			
+
 		}
-	
+
 
 	}
 	public Permutation getPermutation(){

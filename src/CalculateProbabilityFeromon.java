@@ -26,7 +26,7 @@ public class CalculateProbabilityFeromon {
 		for (int i = 0; i < numberOfElements_; i++){
 			for(int j = 0; j < numberOfValues_; j++){
 				
-				for(int z = 0 ; i < numberOfValues_; z++){
+				for(int z = 0 ; z < numberOfValues_; z++){
 					
 					denominator = denominator + (Math.pow(1/matrix_.getValue(i, z),alpha_) * Math.pow(cPI_.getPointsInformation(i, z).getFeromon(),betha_));
 				}
