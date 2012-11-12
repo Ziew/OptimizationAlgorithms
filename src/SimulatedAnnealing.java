@@ -40,7 +40,7 @@ public class SimulatedAnnealing implements IOptimizationAlgorithms, IObservable 
 			else{
 				double x = rand.nextFloat();
 				if(x < Math.exp((Math.abs(difference))/temperature_)){
-					permutation_.switchPermutation(permutationPrim.getPermutation());
+				permutation_.switchPermutation(permutationPrim.getPermutation());
 					bestResult_ = MeanValueCalculator.calculate(matrix_, permutation_);
 					notifyall();
 				}
@@ -52,7 +52,13 @@ public class SimulatedAnnealing implements IOptimizationAlgorithms, IObservable 
 	
 	
 	
-	
+	public static void main(String[] args) throws FileNotFoundException{
+		Matrix matrix = new Matrix();
+		matrix.loadMatrixFromFile("test.txt");
+		Permutation perm = new Permutation(16, 30);
+		SimulatedAnnealing s = new SimulatedAnnealing(matrix,perm , 1000, 10000, 0.9);
+		s.calculate();
+	}
 	
 	public Permutation getPermutation() {
 		return permutation_;

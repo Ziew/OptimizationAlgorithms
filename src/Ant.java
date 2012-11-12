@@ -16,12 +16,10 @@ public class Ant {
 				if(cPI.getPointsInformation(i, j).getProbability() > randDouble){
 					//System.out.println("{" + i + ", " + j +"}");
 					//System.out.println(cPI.getPointsInformation(i, j).getProbability() + " " + randDouble);
-					if(j == 0){
+					
 						permutation_.switchValues(i, j);
-					}
-					else{
-						permutation_.switchValues(i, j-1);
-					}
+					
+					
 					break;
 				}
 

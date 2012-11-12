@@ -11,13 +11,9 @@ public class CollectionPointInformation {
 	}
 	
 	public PointInformation getPointsInformation(int column, int rows){
-		try{
+		
 		return pointsInformation.get(column).get(rows);
-		}
-		catch(Exception e){
-			System.out.println(column + " " + rows + " wyjatek");
-			return null;
-		}
+	
 	}
 	
 	private void generate(int numberOfElement, int numberOfValues){
