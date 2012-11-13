@@ -1,6 +1,8 @@
 import java.awt.*;
 
 import javax.swing.*;
+
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
@@ -22,11 +24,15 @@ public class Test extends JFrame {
 	private JTextField textField_12;
 	private JTextField textField_13;
 	private JTextField textField_14;
+	final JFileChooser fc = new JFileChooser();
+
+
 	public static void main(String[] args) {
 		Test t = new Test();
 	}
 
 	public Test() {
+
 		JFrame j = new JFrame();
 		j.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		j.setSize(400, 400);
@@ -166,41 +172,41 @@ public class Test extends JFrame {
 
 		JToolBar toolBar_2 = new JToolBar();
 		tabbedPane.addTab("Ant colony", null, toolBar_2, null);
-		
+
 		JPanel panel_2 = new JPanel();
 		toolBar_2.add(panel_2);
 		panel_2.setLayout(null);
-		
+
 		textField_9 = new JTextField();
 		textField_9.setBounds(116, 12, 114, 19);
 		panel_2.add(textField_9);
 		textField_9.setColumns(10);
-		
+
 		textField_10 = new JTextField();
 		textField_10.setBounds(116, 43, 114, 19);
 		panel_2.add(textField_10);
 		textField_10.setColumns(10);
-		
+
 		textField_11 = new JTextField();
 		textField_11.setBounds(116, 74, 114, 19);
 		panel_2.add(textField_11);
 		textField_11.setColumns(10);
-		
+
 		textField_12 = new JTextField();
 		textField_12.setBounds(116, 105, 114, 19);
 		panel_2.add(textField_12);
 		textField_12.setColumns(10);
-		
+
 		textField_13 = new JTextField();
 		textField_13.setBounds(116, 136, 114, 19);
 		panel_2.add(textField_13);
 		textField_13.setColumns(10);
-		
+
 		textField_14 = new JTextField();
 		textField_14.setBounds(116, 167, 114, 19);
 		panel_2.add(textField_14);
 		textField_14.setColumns(10);
-		
+
 		JButton btnNewButton_1 = new JButton("wykonaj");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -216,27 +222,27 @@ public class Test extends JFrame {
 		});
 		btnNewButton_1.setBounds(116, 240, 117, 25);
 		panel_2.add(btnNewButton_1);
-		
+
 		JLabel lblNewLabel_4 = new JLabel("LAlg");
 		lblNewLabel_4.setBounds(40, 14, 70, 15);
 		panel_2.add(lblNewLabel_4);
-		
+
 		JLabel lblNewLabel_5 = new JLabel("LBag");
 		lblNewLabel_5.setBounds(40, 45, 70, 15);
 		panel_2.add(lblNewLabel_5);
-		
+
 		JLabel lblNewLabel_6 = new JLabel("num_ants");
 		lblNewLabel_6.setBounds(40, 76, 70, 15);
 		panel_2.add(lblNewLabel_6);
-		
+
 		JLabel lblNewLabel_7 = new JLabel("p");
 		lblNewLabel_7.setBounds(40, 107, 70, 15);
 		panel_2.add(lblNewLabel_7);
-		
+
 		JLabel lblNewLabel_8 = new JLabel("num_it");
 		lblNewLabel_8.setBounds(40, 138, 70, 15);
 		panel_2.add(lblNewLabel_8);
-		
+
 		JLabel lblNewLabel_9 = new JLabel("betha");
 		lblNewLabel_9.setBounds(40, 169, 70, 15);
 		panel_2.add(lblNewLabel_9);
@@ -245,8 +251,13 @@ public class Test extends JFrame {
 		btnLoadMatrix.setBounds(138, 17, 117, 25);
 		btnLoadMatrix.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+
 				try {
-					matrix_.loadMatrixFromFile("test.txt");
+
+					int returnVal = fc.showOpenDialog(null);
+					matrix_.loadMatrixFromFile(fc.getSelectedFile().getPath());
+
 				} catch (FileNotFoundException e1) {
 
 					e1.printStackTrace();
