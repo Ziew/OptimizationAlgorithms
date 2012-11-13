@@ -60,14 +60,7 @@ public class TabuSearchAlgorithms implements IOptimizationAlgorithms, IObservabl
 		}
 	}
 
-	public static void main(String[] args) throws FileNotFoundException{
-		Matrix matrix  = new Matrix();
-		matrix.loadMatrixFromFile("test.txt");
 	
-		Permutation perm = new Permutation(16, 30);
-		TabuSearchAlgorithms t = new TabuSearchAlgorithms(matrix, perm, 17, 10);
-		t.calculate();
-	}
 	
 	public Permutation getPermutation() {
 		return permutation_;

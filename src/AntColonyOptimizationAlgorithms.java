@@ -79,7 +79,7 @@ public class AntColonyOptimizationAlgorithms implements IOptimizationAlgorithms,
 	public static void main(String[] args) throws FileNotFoundException{
 		Matrix matrix = new Matrix();
 		matrix.loadMatrixFromFile("test.txt");
-		AntColonyOptimizationAlgorithms a = new AntColonyOptimizationAlgorithms(16, 30, 1000, 0.003, 75, matrix, 1.0);
+		AntColonyOptimizationAlgorithms a = new AntColonyOptimizationAlgorithms(16, 30, 1, 0.003, 7500, matrix, 1.0);
 		a.calculate();
 	}
 

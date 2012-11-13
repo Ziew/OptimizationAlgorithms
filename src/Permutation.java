@@ -42,7 +42,12 @@ public class Permutation {
 	public int[] getValuesFromElement(){
 		int[] values = new int[getNumberOfElements()];
 		for(int i = 0; i < values.length ; i++){
+			try{
 			values[i] = permutation_.get(i);
+			}
+			catch(Exception e){
+				System.out.println(i);
+			}
 		}
 		return values;
 	}

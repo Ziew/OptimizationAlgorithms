@@ -6,7 +6,7 @@ public class Ant {
 
 	public Ant(int numberOfElements, int numberOfValues){
 		permutation_ = new Permutation(numberOfElements, numberOfValues);
-
+		permutation_.genPermutation();
 	}
 	public void generatePermutation(CollectionPointInformation cPI){
 		Random rand = new Random();
