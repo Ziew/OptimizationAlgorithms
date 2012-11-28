@@ -25,7 +25,7 @@ public class TabuSearchAlgorithms implements IOptimizationAlgorithms, IObservabl
 		
 		LinkedList<Permutation> tabuList = new LinkedList<Permutation>();
 		boolean equals = false;
-		Permutation permutationPrim = new Permutation(permutation_.getNumberOfElements(), permutation_.getNumberOfValues());
+		Permutation permutationPrim = new Permutation(permutation_.getNumberOfElements(), permutation_.getNumberOfValues(),3);
 		permutationPrim.genPermutation();
 		while(numberOfIteration_-- > 0){
 			permutationPrim.switchPermutation(generationNeighborhood.generateNeighborhood(permutationPrim).getPermutation());

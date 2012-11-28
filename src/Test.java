@@ -25,6 +25,7 @@ public class Test extends JFrame {
 	private JTextField textField_13;
 	private JTextField textField_14;
 	final JFileChooser fc = new JFileChooser();
+	private JTextField textField_15;
 
 
 	public static void main(String[] args) {
@@ -54,11 +55,13 @@ public class Test extends JFrame {
 		panel.add(lblTmax);
 
 		textField = new JTextField();
+		textField.setText("4");
 		textField.setBounds(79, 5, 114, 19);
 		panel.add(textField);
 		textField.setColumns(10);
 
 		textField_1 = new JTextField();
+		textField_1.setText("4");
 		textField_1.setBounds(79, 36, 114, 19);
 		panel.add(textField_1);
 		textField_1.setColumns(10);
@@ -71,9 +74,10 @@ public class Test extends JFrame {
 				int temp = Integer.parseInt(textField_2.getText());
 				double n = Double.parseDouble(textField_3.getText());
 				int num_it = Integer.parseInt(textField_4.getText());
+				int PK = Integer.parseInt(textField_15.getText());
 
-				Permutation perm = new Permutation(LAlg, LBag);
-				SimulatedAnnealing SA = new SimulatedAnnealing(matrix_, perm, temp, num_it, n);
+				Permutation perm = new Permutation(LAlg, LBag ,PK);
+				IOptimizationAlgorithms SA = new SimulatedAnnealing(matrix_, perm, temp, num_it, n);
 				SA.calculate();
 			}
 		});
@@ -81,16 +85,19 @@ public class Test extends JFrame {
 		panel.add(btnNewButton);
 
 		textField_2 = new JTextField();
+		textField_2.setText("1000");
 		textField_2.setBounds(79, 67, 114, 19);
 		panel.add(textField_2);
 		textField_2.setColumns(10);
 
 		textField_3 = new JTextField();
+		textField_3.setText("0.9");
 		textField_3.setBounds(79, 98, 114, 19);
 		panel.add(textField_3);
 		textField_3.setColumns(10);
 
 		textField_4 = new JTextField();
+		textField_4.setText("1000");
 		textField_4.setBounds(79, 129, 114, 19);
 		panel.add(textField_4);
 		textField_4.setColumns(10);
@@ -110,6 +117,16 @@ public class Test extends JFrame {
 		JLabel lblNumit = new JLabel("num_it");
 		lblNumit.setBounds(25, 131, 49, 15);
 		panel.add(lblNumit);
+		
+		textField_15 = new JTextField();
+		textField_15.setText("10");
+		textField_15.setBounds(79, 160, 114, 19);
+		panel.add(textField_15);
+		textField_15.setColumns(10);
+		
+		JLabel lblPk = new JLabel("PK");
+		lblPk.setBounds(25, 158, 25, 15);
+		panel.add(lblPk);
 
 		JToolBar toolBar_1 = new JToolBar();
 		tabbedPane.addTab("Tabu search", null, toolBar_1, null);
@@ -161,10 +178,12 @@ public class Test extends JFrame {
 				int LBag = Integer.parseInt(textField_6.getText());
 				int num_it = Integer.parseInt(textField_7.getText());
 				int num_tabu = Integer.parseInt(textField_8.getText());
-
-				Permutation perm = new Permutation(LAlg, LBag);
+				int pk = Integer.parseInt(textField_15.getText());
+				
+				Permutation perm = new Permutation(LAlg, LBag, 3);
 				TabuSearchAlgorithms TS = new TabuSearchAlgorithms(matrix_, perm, num_it, num_tabu);
 				TS.calculate();
+				
 			}
 		});
 		btnWykonaj.setBounds(117, 240, 117, 25);

@@ -1,11 +1,12 @@
 
 public class MeanValueCalculator {
 	
-	public static float calculate(Matrix matrix, Permutation permutation){
+	public static double calculate(Matrix matrix, Permutation permutation){
 		float averageValue = 0;
-		for(int i = 0; i < permutation.getValuesFromElement().length; i++){
-			averageValue += matrix.getValue(i, permutation.getValuesFromElement()[i] );
+		for(int i = 0; i < 16; i++){
+			for(int j = 0; j < permutation.getPermutation().get(i).size(); j++)
+			averageValue += matrix.getValue(i, permutation.getPermutation().get(i).get(j) );
 		}
-		return averageValue/permutation.getValuesFromElement().length;
+		return averageValue/permutation.getPK();
 	}
 }
