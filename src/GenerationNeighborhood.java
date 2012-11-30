@@ -2,82 +2,54 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import com.sun.accessibility.internal.resources.accessibility;
+
 
 public class GenerationNeighborhood{
-	private float bestResult_;
 
-	private Matrix matrix_;
-	public GenerationNeighborhood( Matrix matrix){
-		matrix_ = matrix;
-	}
-
-	public Permutation generateNeighborhood(Permutation permutation_){
-		bestResult_ = MeanValueCalculator.calculate(matrix_, permutation_);
-		Permutation permutationPrim = new Permutation(permutation_.getNumberOfElements(), permutation_.getNumberOfValues());
-		Permutation permutationPrim2 = new Permutation(permutation_.getNumberOfElements(), permutation_.getNumberOfValues());
-		for(int i = 0; i < permutation_.getNumberOfElements(); i++){
-			for(int j = 0; j < permutation_.getNumberOfValues(); j++){
-				if(permutation_.getPermutation().get(i) == j){
-
-				}
-				else{
-
-					permutationPrim.switchPermutation(permutation_.getPermutation());
-					permutationPrim.switchValues(i, j);
-					if(MeanValueCalculator.calculate(matrix_, permutationPrim) < bestResult_){
-						permutationPrim2.switchPermutation(permutationPrim.getPermutation());
-
-						bestResult_ = MeanValueCalculator.calculate(matrix_, permutationPrim2);
+	private static Permutation gen(int alg, int bag, Permutation permutation, LinkedList<Permutation> tabuList, double bestResult, Matrix matrix){
+		Permutation permutationPrim = permutation.clone();
+		Permutation permutationPrim2 = permutation.clone();
+		for(int i = 0; i < 16; i++){
+			for(int j = 0; j < 30; j++){
+				if(permutation.isLegal(alg, bag, i, j) && !permutation.checkPer(j, i)){
+					permutationPrim.switchVal(alg, bag, i, j);
+					if(MeanValueCalculator.calculate(matrix, permutationPrim) < bestResult){
+						permutationPrim2 = permutationPrim.clone();
+						bestResult = MeanValueCalculator.calculate(matrix, permutationPrim2);
+						permutationPrim = permutation.clone();
 					}
-					permutationPrim.switchPermutation(permutation_.getPermutation());
-				}
-			}
-		}
-		permutation_.switchPermutation(permutationPrim2.getPermutation());
-		return permutation_;
-	}
-
-	public Permutation generateNeighborhood(Permutation permutation_, LinkedList<Permutation> tabuList){
-		bestResult_ = MeanValueCalculator.calculate(matrix_, permutation_);
-		Permutation permutationPrim = new Permutation(permutation_.getNumberOfElements(), permutation_.getNumberOfValues());
-		Permutation permutationPrim2 = new Permutation(permutation_.getNumberOfElements(), permutation_.getNumberOfValues());
-		boolean equals = false;
-		for(int i = 0; i < permutation_.getNumberOfElements(); i++){
-			for(int j = 0; j < permutation_.getNumberOfValues(); j++){
-				if(permutation_.getPermutation().get(i) == j){
-
-				}
-				else{
-
-					permutationPrim.switchPermutation(permutation_.getPermutation());
-					permutationPrim.switchValues(i, j);
-					if(MeanValueCalculator.calculate(matrix_, permutationPrim) < bestResult_){
-						for(int index = 0 ; index < tabuList.size() ; index++){
-							if(permutationPrim.getPermutation().equals(tabuList.get(index).getPermutation())){
-								equals= true;
-							}
-
-
-						}
-						if(equals == false){
-							permutationPrim2.switchPermutation(permutationPrim.getPermutation());
-
-							bestResult_ = MeanValueCalculator.calculate(matrix_, permutationPrim2);
-							equals = false;
-						}
-
+					else{
+						permutationPrim = permutation.clone();
 					}
 				}
 			}
 		}
-		permutation_.switchPermutation(permutationPrim2.getPermutation());
-		return permutation_;
+		return permutationPrim2;
 	}
 
+	public static Permutation generateNeighborhood(Permutation permutation, LinkedList<Permutation> tabuList, double bestResult, Matrix matrix){
+		Permutation permutationPrim = permutation.clone();
+		Permutation permutationPrim2 = permutation.clone();
+		for(int i = 0; i < 16; i++){
+			if(permutation.getPermutation().get(i).size() < 1){
+			}
+			else{
+				for(int j: permutation.getPermutation().get(i)){
+					permutationPrim = gen(i, j, permutation, tabuList, bestResult, matrix);
+					if(MeanValueCalculator.calculate(matrix, permutationPrim) < MeanValueCalculator.calculate(matrix, permutationPrim2)){
+						permutationPrim2 = permutationPrim.clone();
+					}
+					else{
+						permutationPrim = permutationPrim2.clone();
+					}
+				}
+			}
+		}
 
 
-
-
+		return permutationPrim;
+	}
 }
 
 

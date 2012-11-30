@@ -7,7 +7,7 @@ public class TabuSearchAlgorithms implements IOptimizationAlgorithms, IObservabl
 	private Matrix matrix_;
 	private Permutation permutation_;
 	private int numberOfIteration_;
-	private float bestResult_;
+	private double bestResult_ =1000000.0;
 	private int numberTabuList_;
 
 	public TabuSearchAlgorithms(Matrix matrix, Permutation permutation, int numberOfIteration, int numberTabuList){
@@ -17,47 +17,27 @@ public class TabuSearchAlgorithms implements IOptimizationAlgorithms, IObservabl
 		observators_.add(new NewPermutationObserver());
 		observators_.add(new NewResultObserver());
 		numberTabuList_ = numberTabuList;
+		permutation_.genPermutation();
+		
 	}
 
 	public void calculate() {
-		permutation_.genPermutation();
-		GenerationNeighborhood generationNeighborhood = new GenerationNeighborhood( matrix_);
-		
 		LinkedList<Permutation> tabuList = new LinkedList<Permutation>();
-		boolean equals = false;
-		Permutation permutationPrim = new Permutation(permutation_.getNumberOfElements(), permutation_.getNumberOfValues(),3);
-		permutationPrim.genPermutation();
-		while(numberOfIteration_-- > 0){
-			permutationPrim.switchPermutation(generationNeighborhood.generateNeighborhood(permutationPrim).getPermutation());
-			for(int index = 0 ; index < tabuList.size() ; index++){
-				if(permutationPrim.getPermutation().equals(tabuList.get(index).getPermutation())){
-					equals= true;
-				}
-			}
-			if(!equals){
-				permutation_.switchPermutation(permutationPrim.getPermutation());
-				bestResult_ = MeanValueCalculator.calculate(matrix_, permutation_);
-				tabuList.addFirst(permutation_);
-				if(numberTabuList_ == tabuList.size()){
-					tabuList.removeLast();
-				}
-				notifyall();
-				
+		Permutation permutationPrim = permutation_.clone();
+		bestResult_ = MeanValueCalculator.calculate(matrix_, permutation_);
+		for(int i = 0; i < numberOfIteration_; i++){
+			permutation_ = GenerationNeighborhood.generateNeighborhood(permutation_, tabuList, bestResult_, matrix_);
+			bestResult_ = MeanValueCalculator.calculate(matrix_, permutation_);
+			notifyall();
+			if(tabuList.size() < numberTabuList_){
+				tabuList.add(permutation_.clone());
 			}
 			else{
-				
-				permutation_.switchPermutation(generationNeighborhood.generateNeighborhood(permutation_ ,tabuList).getPermutation());
-				bestResult_ = MeanValueCalculator.calculate(matrix_, permutation_);
-				tabuList.addFirst(permutation_);
-				if(numberTabuList_ == tabuList.size()){
-					tabuList.removeLast();
-				}
-				notifyall();
-				
+				tabuList.add(permutation_.clone());
+				tabuList.removeFirst();
 			}
-
-
 		}
+		
 	}
 
 	
@@ -66,7 +46,7 @@ public class TabuSearchAlgorithms implements IOptimizationAlgorithms, IObservabl
 		return permutation_;
 	}
 
-	public float getBestResult() {
+	public double getBestResult() {
 		return bestResult_;
 	}
 

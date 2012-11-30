@@ -1,9 +1,12 @@
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
+
+import com.sun.xml.internal.ws.api.server.Container;
 
 
 public class Permutation implements Cloneable{
@@ -12,9 +15,9 @@ public class Permutation implements Cloneable{
 	private Integer numberOfValues_;
 	private Integer pK_;
 	private LinkedList<Integer> tab = new LinkedList<Integer>();;
-	
+
 	public Permutation clone()
-    {
+	{
 		Permutation perm = new Permutation(numberOfElements_, numberOfValues_, pK_);
 		for(int i = 0; i < 16; i++){
 			perm.permutation_.put(i, new LinkedList<Integer>());
@@ -25,14 +28,15 @@ public class Permutation implements Cloneable{
 		for(int i = 0; i < tab.size(); i++){
 			perm.tab.add(tab.get(i));
 		}
-        return perm;
-    } 
+		return perm;
+	} 
 
 	public Permutation(Integer numberOfElements, Integer numberOfValues, Integer pk){
 		numberOfElements_ = numberOfElements;
 		numberOfValues_ = numberOfValues;
 		pK_ = pk;
 	}
+
 
 	public void genPermutation(){
 		LinkedList<Integer> tabPrim = new LinkedList<Integer>();
@@ -75,6 +79,13 @@ public class Permutation implements Cloneable{
 			}
 		}
 		tab = tabPrim;
+		for(int i = 0; i < 16; i++){
+
+
+			Collections.sort(permutation_.get(i));
+
+		}
+
 	}
 
 	public void updateTab(int alg, int alg_){
@@ -98,6 +109,7 @@ public class Permutation implements Cloneable{
 	}
 
 	public boolean checkPer(int bag,int alg){
+
 		for(int j: permutation_.get(alg)){
 			if(bag == j) {
 				return true;
@@ -115,17 +127,7 @@ public class Permutation implements Cloneable{
 		switchValues2(alg, bag);
 
 	}
-	public void wyswietl(){
-		
-			System.out.print("Permutacja:");
-			for(int i = 0; i < 16; i++){
-				for(int j = 0; j < permutation_.get(i).size(); j++)
-				System.out.print("{" + i + " " + permutation_.get(i).get(j) + "} ");
-			}
-			System.out.println();
-			
-		
-	}
+
 
 	private void switchValues2(int alg, int bag){
 		Random rand = new Random();
@@ -135,79 +137,83 @@ public class Permutation implements Cloneable{
 			permutation_.get(alg_).add(bag_);
 			permutation_.get(alg).remove(permutation_.get(alg).indexOf(bag));
 			updateTab(alg, alg_);
-			
+
 		}
 		else{
-			System.out.println("dupa");
+
 			switchValues2(alg, bag);
 		}
 	}
 
 	public boolean isLegal(int alg, int bag,int alg_, int bag_){
+
 		if(alg == alg_ && bag == bag_){
-			System.out.println("rowne");
+
 			return false;
-			
+
 		}
-		if(permutation_.get(alg).size() > 1){
-			if(tab.indexOf(alg_) == -1){
-				
+		if(alg == alg_){
+			return true;
+		}
+		if(tab.size() == numberOfElements_){
+			if(isOnTab(alg_) && permutation_.get(alg_).size() < numberOfValues_){
 				return true;
 			}
 			else{
-				if(permutation_.get(alg_).size() >= numberOfValues_){
-					System.out.println("przekroczone bagi dla dowolnego alg");
-					return false;
-				}
-				return true;
+				return false;
 			}
 		}
 		else{
-			if(alg == alg_){
+			if(permutation_.get(alg_).size() < numberOfValues_){
 				return true;
 			}
-			if(permutation_.get(alg_).size() >= numberOfValues_){
-				System.out.println("przekroczone bagi dla wybranych alg");
-				return false;
-			}
-			else{
-				
-				return true;
-			}
+			return false;
 		}
 	}
 
+public boolean isOnTab(int alg){
+	for(int i: tab){
+		if(i == alg){
+			return true;
+		}
+	}
+	return false;
+}
 
-	public Integer getNumberOfElements(){
-		return numberOfElements_;
-	}
 
-	public Integer getNumberOfValues(){
-		return numberOfValues_;
-	}
+public void switchVal(int alg, int bag, int alg_, int bag_){
 
-	public void switchPermutation(Map<? extends Integer, ? extends LinkedList<Integer>> permutation){
-		permutation_.putAll(permutation);
-	}
+	permutation_.get(alg).remove(permutation_.get(alg).indexOf(bag));
+	permutation_.get(alg_).add(bag_);
+	updateTab(alg, alg_);
 
-	public Map<Integer, LinkedList<Integer>> getPermutation(){
-		return permutation_;
-	}
-	public int getPK(){
-		return pK_;
-	}
+	Collections.sort(permutation_.get(alg));
+	Collections.sort(permutation_.get(alg_));
+}
 
-	public static void main(String[] args){
-		Permutation p = new Permutation(5, 14, 10);
-		p.genPermutation();
-		SimulatedAnnealing s = new SimulatedAnnealing(new Matrix(), p, 1000, 100, 5);
-		NewPermutationObserver a = new NewPermutationObserver();
-		a.notif(s);
-		//for(int i = 0; i < 100; i++){
-		//p.switchValues();
-		//s = new SimulatedAnnealing(new Matrix(), p, 1000, 100, 5);
-		//a.notif(s);
-		//}
-	}
+
+public Integer getNumberOfElements(){
+	return numberOfElements_;
+}
+
+public Integer getNumberOfValues(){
+	return numberOfValues_;
+}
+
+public void switchPermutation(Map<? extends Integer, ? extends LinkedList<Integer>> permutation){
+	permutation_.putAll(permutation);
+}
+
+public Map<Integer, LinkedList<Integer>> getPermutation(){
+	return permutation_;
+}
+public int getPK(){
+	return pK_;
+}
+public LinkedList<Integer> getTab(){
+	return tab;
+}
+
+
 
 }

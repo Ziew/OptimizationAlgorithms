@@ -136,21 +136,25 @@ public class Test extends JFrame {
 		panel_1.setLayout(null);
 
 		textField_5 = new JTextField();
+		textField_5.setText("4");
 		textField_5.setBounds(110, 12, 114, 19);
 		panel_1.add(textField_5);
 		textField_5.setColumns(10);
 
 		textField_6 = new JTextField();
+		textField_6.setText("4");
 		textField_6.setBounds(110, 53, 114, 19);
 		panel_1.add(textField_6);
 		textField_6.setColumns(10);
 
 		textField_7 = new JTextField();
+		textField_7.setText("10");
 		textField_7.setBounds(110, 93, 114, 19);
 		panel_1.add(textField_7);
 		textField_7.setColumns(10);
 
 		textField_8 = new JTextField();
+		textField_8.setText("10");
 		textField_8.setBounds(110, 131, 114, 19);
 		panel_1.add(textField_8);
 		textField_8.setColumns(10);
@@ -180,7 +184,7 @@ public class Test extends JFrame {
 				int num_tabu = Integer.parseInt(textField_8.getText());
 				int pk = Integer.parseInt(textField_15.getText());
 				
-				Permutation perm = new Permutation(LAlg, LBag, 3);
+				Permutation perm = new Permutation(LAlg, LBag, pk);
 				TabuSearchAlgorithms TS = new TabuSearchAlgorithms(matrix_, perm, num_it, num_tabu);
 				TS.calculate();
 				
