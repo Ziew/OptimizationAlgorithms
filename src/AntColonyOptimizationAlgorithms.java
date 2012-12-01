@@ -18,7 +18,7 @@ public class AntColonyOptimizationAlgorithms implements IOptimizationAlgorithms,
 	private float bestResult_;
 	private Matrix matrix_;
 
-	public AntColonyOptimizationAlgorithms(int numberOfElements, int numberOfValues, int numberOfAnts,double p, int numberOfIteration, Matrix matrix,  double betha ){
+	public AntColonyOptimizationAlgorithms(int pK ,int numberOfElements, int numberOfValues, int numberOfAnts,double p, int numberOfIteration, Matrix matrix,  double betha ){
 		numberOfElements_ = numberOfElements;
 		numberOfValues_ = numberOfValues;
 		cPI_ = new CollectionPointInformation(numberOfElements, numberOfValues);
@@ -29,7 +29,7 @@ public class AntColonyOptimizationAlgorithms implements IOptimizationAlgorithms,
 		observators_.add(new NewPermutationObserver());
 		observators_.add(new NewResultObserver());
 		
-		permutation_ = new Permutation(numberOfElements, numberOfValues);
+		permutation_ = new Permutation(numberOfElements, numberOfValues, pK);
 
 	}
 
@@ -40,9 +40,9 @@ public class AntColonyOptimizationAlgorithms implements IOptimizationAlgorithms,
 		for(int j = 0; j < numberOfIteration_ ; j++){
 			for(int i = 0; i < numberOfAnts_; i++){
 				ants_.get(i).generatePermutation(cPI_);
-				permutation_.switchPermutation(ants_.get(i).getPermutation().getPermutation());
+				//permutation_.switchPermutation(ants_.get(i).getPermutation().getPermutation());
 				System.out.println(i+1  + " mrowka");
-				bestResult_ = MeanValueCalculator.calculate(matrix_, ants_.get(i).getPermutation());
+				//bestResult_ = MeanValueCalculator.calculate(matrix_, ants_.get(i).getPermutation());
 				notifyall();
 				
 			}
@@ -61,7 +61,7 @@ public class AntColonyOptimizationAlgorithms implements IOptimizationAlgorithms,
 	}
 
 
-	public float getBestResult() {
+	public double getBestResult() {
 
 		return bestResult_;
 	}
@@ -76,12 +76,7 @@ public class AntColonyOptimizationAlgorithms implements IOptimizationAlgorithms,
 		
 	}
 
-	public static void main(String[] args) throws FileNotFoundException{
-		Matrix matrix = new Matrix();
-		matrix.loadMatrixFromFile("test.txt");
-		AntColonyOptimizationAlgorithms a = new AntColonyOptimizationAlgorithms(16, 30, 1, 0.003, 7500, matrix, 1.0);
-		a.calculate();
-	}
+
 
 
 }

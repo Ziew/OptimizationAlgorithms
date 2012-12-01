@@ -23,7 +23,7 @@ public class TabuSearchAlgorithms implements IOptimizationAlgorithms, IObservabl
 
 	public void calculate() {
 		LinkedList<Permutation> tabuList = new LinkedList<Permutation>();
-		Permutation permutationPrim = permutation_.clone();
+	
 		bestResult_ = MeanValueCalculator.calculate(matrix_, permutation_);
 		for(int i = 0; i < numberOfIteration_; i++){
 			permutation_ = GenerationNeighborhood.generateNeighborhood(permutation_, tabuList, bestResult_, matrix_);

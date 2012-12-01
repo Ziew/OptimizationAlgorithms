@@ -38,21 +38,16 @@ public class SimulatedAnnealing implements IOptimizationAlgorithms, IObservable 
 			if(difference < 0){
 				permutation_ = permutationPrim.clone();
 				bestResult_ = MeanValueCalculator.calculate(matrix_, permutation_);
-				for(int j:permutation_.getTab()){
-					System.out.println(j);
-				}
 				notifyall();
 			}
 			else{
 				double x = rand.nextDouble();
-
+				
 				if(x < Math.exp(-(difference/temperature_))){
+					
 
 					permutation_ = permutationPrim.clone();
 					bestResult_ = MeanValueCalculator.calculate(matrix_, permutation_);
-					for(int j:permutation_.getTab()){
-						System.out.println(j);
-					}
 					notifyall();
 				}
 			}

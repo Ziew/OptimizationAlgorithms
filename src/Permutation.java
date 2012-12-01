@@ -1,12 +1,12 @@
-import java.util.Collection;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
-import java.util.TreeMap;
 
-import com.sun.xml.internal.ws.api.server.Container;
+
+
 
 
 public class Permutation implements Cloneable{
@@ -200,9 +200,6 @@ public Integer getNumberOfValues(){
 	return numberOfValues_;
 }
 
-public void switchPermutation(Map<? extends Integer, ? extends LinkedList<Integer>> permutation){
-	permutation_.putAll(permutation);
-}
 
 public Map<Integer, LinkedList<Integer>> getPermutation(){
 	return permutation_;
@@ -210,9 +207,7 @@ public Map<Integer, LinkedList<Integer>> getPermutation(){
 public int getPK(){
 	return pK_;
 }
-public LinkedList<Integer> getTab(){
-	return tab;
-}
+
 
 
 
