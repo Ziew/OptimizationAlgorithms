@@ -15,42 +15,42 @@ public class AntColonyOptimizationAlgorithms implements IOptimizationAlgorithms,
 	private Permutation permutation_;
 	private int numberOfIteration_;
 	private CalculateProbabilityFeromon cPF_;
-	private float bestResult_;
+	private double bestResult_;
 	private Matrix matrix_;
+	private int pK_;
 
 	public AntColonyOptimizationAlgorithms(int pK ,int numberOfElements, int numberOfValues, int numberOfAnts,double p, int numberOfIteration, Matrix matrix,  double betha ){
 		numberOfElements_ = numberOfElements;
 		numberOfValues_ = numberOfValues;
-		cPI_ = new CollectionPointInformation(numberOfElements, numberOfValues);
+		cPI_ = new CollectionPointInformation();
 		numberOfAnts_= numberOfAnts;
 		matrix_ = matrix;
 		numberOfIteration_ = numberOfIteration;
-		cPF_ = new CalculateProbabilityFeromon(matrix_, cPI_, betha, numberOfElements_, numberOfValues_, p );
+		cPF_ = new CalculateProbabilityFeromon(matrix_, cPI_, betha, p );
 		observators_.add(new NewPermutationObserver());
 		observators_.add(new NewResultObserver());
-		
+		pK_ = pK;
 		permutation_ = new Permutation(numberOfElements, numberOfValues, pK);
 
 	}
 
 	public void calculate() {
 		for(int i = 0 ; i < numberOfAnts_ ; i++){
-			ants_.add(new Ant(numberOfElements_, numberOfValues_));
+			ants_.add(new Ant(numberOfElements_, numberOfValues_, pK_));
 		}
 		for(int j = 0; j < numberOfIteration_ ; j++){
 			for(int i = 0; i < numberOfAnts_; i++){
 				ants_.get(i).generatePermutation(cPI_);
-				//permutation_.switchPermutation(ants_.get(i).getPermutation().getPermutation());
-				System.out.println(i+1  + " mrowka");
-				//bestResult_ = MeanValueCalculator.calculate(matrix_, ants_.get(i).getPermutation());
+				cPF_.calculateProbability();
+				permutation_ = ants_.get(i).getPermutation().clone();
+				bestResult_ = MeanValueCalculator.calculate(matrix_, permutation_);
 				notifyall();
-				
 			}
 			for(int z = 0 ; z < numberOfAnts_; z++){
-			cPF_.calculateFeromon(ants_.get(z));
+				cPF_.calculateFeromon(ants_.get(z));
 			}
 			cPF_.calculateProbability();
-			
+
 		}
 	}
 
@@ -65,15 +65,15 @@ public class AntColonyOptimizationAlgorithms implements IOptimizationAlgorithms,
 
 		return bestResult_;
 	}
-	
-	
+
+
 
 
 	public void notifyall() {
 		for(IObservator o : observators_){
 			o.notif(this);
 		}
-		
+
 	}
 
 

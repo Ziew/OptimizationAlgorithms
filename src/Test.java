@@ -201,31 +201,37 @@ public class Test extends JFrame {
 		panel_2.setLayout(null);
 
 		textField_9 = new JTextField();
+		textField_9.setText("4");
 		textField_9.setBounds(116, 12, 114, 19);
 		panel_2.add(textField_9);
 		textField_9.setColumns(10);
 
 		textField_10 = new JTextField();
+		textField_10.setText("4");
 		textField_10.setBounds(116, 43, 114, 19);
 		panel_2.add(textField_10);
 		textField_10.setColumns(10);
 
 		textField_11 = new JTextField();
+		textField_11.setText("10");
 		textField_11.setBounds(116, 74, 114, 19);
 		panel_2.add(textField_11);
 		textField_11.setColumns(10);
 
 		textField_12 = new JTextField();
+		textField_12.setText("0.9");
 		textField_12.setBounds(116, 105, 114, 19);
 		panel_2.add(textField_12);
 		textField_12.setColumns(10);
 
 		textField_13 = new JTextField();
+		textField_13.setText("15");
 		textField_13.setBounds(116, 136, 114, 19);
 		panel_2.add(textField_13);
 		textField_13.setColumns(10);
 
 		textField_14 = new JTextField();
+		textField_14.setText("1");
 		textField_14.setBounds(116, 167, 114, 19);
 		panel_2.add(textField_14);
 		textField_14.setColumns(10);
@@ -239,7 +245,8 @@ public class Test extends JFrame {
 				int num_it = Integer.parseInt(textField_13.getText());
 				double p = Double.parseDouble(textField_12.getText());
 				double betha = Double.parseDouble(textField_14.getText());
-				AntColonyOptimizationAlgorithms AC = new AntColonyOptimizationAlgorithms(LAlg, LBag, num_ants, p, num_it, matrix_, betha);
+				int pK = Integer.parseInt(textField_15.getText());
+				AntColonyOptimizationAlgorithms AC = new AntColonyOptimizationAlgorithms(pK, LAlg, LBag, num_ants, p, num_it, matrix_, betha);
 				AC.calculate();
 			}
 		});

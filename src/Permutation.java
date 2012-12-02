@@ -36,7 +36,12 @@ public class Permutation implements Cloneable{
 		numberOfValues_ = numberOfValues;
 		pK_ = pk;
 	}
-
+	public void genEmptyPermutation(){
+		for(int i = 0 ; i < 16 ; i++){
+			permutation_.put(i, new LinkedList<Integer>());
+		}
+		tab.clear();
+	}
 
 	public void genPermutation(){
 		LinkedList<Integer> tabPrim = new LinkedList<Integer>();
@@ -54,7 +59,6 @@ public class Permutation implements Cloneable{
 						i--;
 					}
 				}
-
 			}
 			tab.add(prim);
 		}
@@ -80,12 +84,8 @@ public class Permutation implements Cloneable{
 		}
 		tab = tabPrim;
 		for(int i = 0; i < 16; i++){
-
-
 			Collections.sort(permutation_.get(i));
-
 		}
-
 	}
 
 	public void updateTab(int alg, int alg_){
@@ -101,7 +101,6 @@ public class Permutation implements Cloneable{
 			if(tab.get(i) == alg_){
 				isOnTab = true;
 			}
-
 		}
 		if(!isOnTab){
 			tab.add(alg_);
@@ -109,7 +108,6 @@ public class Permutation implements Cloneable{
 	}
 
 	public boolean checkPer(int bag,int alg){
-
 		for(int j: permutation_.get(alg)){
 			if(bag == j) {
 				return true;
@@ -118,14 +116,11 @@ public class Permutation implements Cloneable{
 		return false;
 	}
 
-
-
 	public void switchValues(){
 		Random rand = new Random();
 		int alg = tab.get(rand.nextInt(tab.size()));
 		int bag = permutation_.get(alg).get(rand.nextInt(permutation_.get(alg).size()));
 		switchValues2(alg, bag);
-
 	}
 
 
@@ -137,20 +132,44 @@ public class Permutation implements Cloneable{
 			permutation_.get(alg_).add(bag_);
 			permutation_.get(alg).remove(permutation_.get(alg).indexOf(bag));
 			updateTab(alg, alg_);
-
 		}
 		else{
-
 			switchValues2(alg, bag);
+		}
+	}
+
+	public void addPoint(int alg, int bag){
+		permutation_.get(alg).add(bag);
+		if(!isOnTab(alg)){
+			tab.add(alg);
+		}
+	}
+
+	public boolean isLegal(int alg, int bag){
+
+	if(checkPer(bag, alg)){
+			return false;
+		}
+		
+		
+		if(isOnTab(alg)){
+			if(permutation_.get(alg).size() < numberOfValues_){
+				return true;
+			}
+			return false;
+		}
+		else{
+			if(tab.size() < numberOfElements_){
+				return true;
+			}
+			return false;
 		}
 	}
 
 	public boolean isLegal(int alg, int bag,int alg_, int bag_){
 
 		if(alg == alg_ && bag == bag_){
-
 			return false;
-
 		}
 		if(alg == alg_){
 			return true;
@@ -171,42 +190,40 @@ public class Permutation implements Cloneable{
 		}
 	}
 
-public boolean isOnTab(int alg){
-	for(int i: tab){
-		if(i == alg){
-			return true;
+	public boolean isOnTab(int alg){
+		for(int i: tab){
+			if(i == alg){
+				return true;
+			}
 		}
+		return false;
 	}
-	return false;
-}
 
 
-public void switchVal(int alg, int bag, int alg_, int bag_){
-
-	permutation_.get(alg).remove(permutation_.get(alg).indexOf(bag));
-	permutation_.get(alg_).add(bag_);
-	updateTab(alg, alg_);
-
-	Collections.sort(permutation_.get(alg));
-	Collections.sort(permutation_.get(alg_));
-}
+	public void switchVal(int alg, int bag, int alg_, int bag_){
+		permutation_.get(alg).remove(permutation_.get(alg).indexOf(bag));
+		permutation_.get(alg_).add(bag_);
+		updateTab(alg, alg_);
+		Collections.sort(permutation_.get(alg));
+		Collections.sort(permutation_.get(alg_));
+	}
 
 
-public Integer getNumberOfElements(){
-	return numberOfElements_;
-}
+	public Integer getNumberOfElements(){
+		return numberOfElements_;
+	}
 
-public Integer getNumberOfValues(){
-	return numberOfValues_;
-}
+	public Integer getNumberOfValues(){
+		return numberOfValues_;
+	}
 
 
-public Map<Integer, LinkedList<Integer>> getPermutation(){
-	return permutation_;
-}
-public int getPK(){
-	return pK_;
-}
+	public Map<Integer, LinkedList<Integer>> getPermutation(){
+		return permutation_;
+	}
+	public int getPK(){
+		return pK_;
+	}
 
 
 
