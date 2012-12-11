@@ -35,22 +35,34 @@ public class AntColonyOptimizationAlgorithms implements IOptimizationAlgorithms,
 	}
 
 	public void calculate() {
+
 		for(int i = 0 ; i < numberOfAnts_ ; i++){
 			ants_.add(new Ant(numberOfElements_, numberOfValues_, pK_));
 		}
 		for(int j = 0; j < numberOfIteration_ ; j++){
 			for(int i = 0; i < numberOfAnts_; i++){
 				ants_.get(i).generatePermutation(cPI_);
-				cPF_.calculateProbability();
+				for(int a = 0; a < 16; a ++){
+					for(int b = 0; b < 30 ; b++){
+
+						//System.out.println(a + " " + b + " " + cPI_.getPointsInformation(a, b).getProbability());
+
+
+					}
+				}
+				if(j == 0){
+					cPI_.generate();
+				}
+				else{
+					cPF_.calculateProbability();
+				}
 				permutation_ = ants_.get(i).getPermutation().clone();
 				bestResult_ = MeanValueCalculator.calculate(matrix_, permutation_);
 				notifyall();
 			}
-			for(int z = 0 ; z < numberOfAnts_; z++){
-				cPF_.calculateFeromon(ants_.get(z));
-			}
+			System.out.println("nowa tura " +  (j+1));
+			cPF_.calculateFeromon(ants_);
 			cPF_.calculateProbability();
-
 		}
 	}
 

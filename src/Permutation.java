@@ -147,11 +147,9 @@ public class Permutation implements Cloneable{
 
 	public boolean isLegal(int alg, int bag){
 
-	if(checkPer(bag, alg)){
-			return false;
-		}
 		
-		
+
+
 		if(isOnTab(alg)){
 			if(permutation_.get(alg).size() < numberOfValues_){
 				return true;

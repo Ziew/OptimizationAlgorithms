@@ -213,7 +213,7 @@ public class Test extends JFrame {
 		textField_10.setColumns(10);
 
 		textField_11 = new JTextField();
-		textField_11.setText("10");
+		textField_11.setText("1");
 		textField_11.setBounds(116, 74, 114, 19);
 		panel_2.add(textField_11);
 		textField_11.setColumns(10);
@@ -225,7 +225,7 @@ public class Test extends JFrame {
 		textField_12.setColumns(10);
 
 		textField_13 = new JTextField();
-		textField_13.setText("15");
+		textField_13.setText("1");
 		textField_13.setBounds(116, 136, 114, 19);
 		panel_2.add(textField_13);
 		textField_13.setColumns(10);

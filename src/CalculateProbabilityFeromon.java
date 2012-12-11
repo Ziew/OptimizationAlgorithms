@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 
 public class CalculateProbabilityFeromon {
 
@@ -17,7 +19,7 @@ public class CalculateProbabilityFeromon {
 		double denominator = 0;
 		for(int i = 0; i < 16; i++){
 			for(int j = 0 ; j < 30 ; j++){
-				denominator = denominator + (Math.pow(cPI_.getPointsInformation(i, j).getFeromon(),betha_));
+				denominator += (Math.pow(cPI_.getPointsInformation(i, j).getFeromon(),betha_));
 			}
 		}
 
@@ -25,36 +27,38 @@ public class CalculateProbabilityFeromon {
 		for(int i = 0; i < 16; i++){
 			for(int j = 0 ; j < 30 ; j++){
 				counter = ( Math.pow(cPI_.getPointsInformation(i, j).getFeromon(),betha_));
+
 				if(i == 0 && j == 0){
 					cPI_.getPointsInformation(i, j).setProbability(counter/denominator);
 				}
+				else if(j == 0 & i != 0){
+					cPI_.getPointsInformation(i, j).setProbability(cPI_.getPointsInformation(i -1, 29).getProbability() +  (counter/denominator));
+				}
 				else{
-
 					cPI_.getPointsInformation(i, j).setProbability(cPI_.getPointsInformation(i, j-1).getProbability() +  (counter/denominator));
 				}
 			}
 		}
 	}
 
-	public void calculateFeromon(Ant ant){
-		boolean bo = false;
-		for (int i = 0; i < 16; i++){
-			for(int j = 0; j < 30 ; j++){
-				for(int z :ant.getPermutation().getPermutation().get(i)){
-					if(j == z){
-						bo = true;
+	public void calculateFeromon(LinkedList<Ant> ant){
+
+		for(Ant a: ant){
+			for (int i = 0; i < 16; i++){
+				for(int j = 0; j < 30 ; j++){
+					if(a.getPermutation().checkPer(j, i)){
+						cPI_.getPointsInformation(i, j).setFeromon(cPI_.getPointsInformation(i, j).getFeromon() + (1.0/(double)matrix_.getValue(i, j)));
 					}
-				}
-				if(bo){
-					int b = ant.getPermutation().getPermutation().get(i).get(ant.getPermutation().getPermutation().get(i).indexOf(j));
-					cPI_.getPointsInformation(i, b).setFeromon(((1 - p_)*cPI_.getPointsInformation(i, b).getFeromon() + (1.0/(double)matrix_.getValue(i, b))));
-					bo = false;
-				}
-				else{
-					cPI_.getPointsInformation(i, j).setFeromon((1 - p_)*cPI_.getPointsInformation(i, j).getFeromon());
 				}
 			}
 		}
+		for (int i = 0; i < 16; i++){
+			for(int j = 0; j < 30 ; j++){
+				cPI_.getPointsInformation(i, j).setFeromon((1 - p_)*cPI_.getPointsInformation(i, j).getFeromon());
+			}
+		}
 	}
+
+
 }
 
