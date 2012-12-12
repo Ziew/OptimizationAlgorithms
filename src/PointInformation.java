@@ -6,10 +6,6 @@ public class PointInformation {
 	private double feromon_;
 
 	public PointInformation(double probability ,int column, int rows, double feromon){
-		if(probability_ > 1 || probability_ < 0)
-		{
-			System.out.println("WTF??");
-		}
 		probability_ = probability;
 		column_ = column;
 		rows_ = rows;
@@ -39,8 +35,8 @@ public class PointInformation {
 
 	public void setProbability(double probability){
 		if(probability < 0){
-			System.out.println("Minusowa wartosc, wynosi ona " + probability);
-		}else{
+		}
+		else{
 			probability_ = probability;
 		}
 	}

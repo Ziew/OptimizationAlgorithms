@@ -1,4 +1,8 @@
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -23,7 +27,7 @@ public class SimulatedAnnealing implements IOptimizationAlgorithms, IObservable 
 
 	}
 	public void calculate(){
-
+		
 		int i = 0;
 		Random rand = new Random();
 		permutation_.genPermutation();
@@ -53,7 +57,19 @@ public class SimulatedAnnealing implements IOptimizationAlgorithms, IObservable 
 			}
 			temperature_ = n_*temperature_;
 		}
-
+		try {
+			PrintWriter printWriter = new PrintWriter(new File("wyniksimulatedannealing.txt"));
+			
+			String string = new String();
+			for(int z = 0; z < 16; z++){
+				for(int j = 0; j < permutation_.getPermutation().get(z).size(); j++)
+				string += "{" + z + " " + permutation_.getPermutation().get(z).get(j) + "} ";
+			}
+			string += " " + bestResult_;
+			printWriter.print(string);
+			printWriter.close();
+		} catch (IOException e) {
+		}
 	}
 
 

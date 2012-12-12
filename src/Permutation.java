@@ -9,7 +9,7 @@ import java.util.Random;
 
 
 
-public class Permutation implements Cloneable{
+public class Permutation{
 	private Map<Integer,LinkedList<Integer>> permutation_ = new HashMap<Integer, LinkedList<Integer>>(); 
 	private Integer numberOfElements_;
 	private Integer numberOfValues_;
@@ -147,9 +147,6 @@ public class Permutation implements Cloneable{
 
 	public boolean isLegal(int alg, int bag){
 
-		
-
-
 		if(isOnTab(alg)){
 			if(permutation_.get(alg).size() < numberOfValues_){
 				return true;
@@ -222,8 +219,4 @@ public class Permutation implements Cloneable{
 	public int getPK(){
 		return pK_;
 	}
-
-
-
-
 }

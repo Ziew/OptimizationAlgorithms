@@ -26,6 +26,8 @@ public class Test extends JFrame {
 	private JTextField textField_14;
 	final JFileChooser fc = new JFileChooser();
 	private JTextField textField_15;
+	private JTextField textField_16;
+	private JTextField textField_17;
 
 
 	public static void main(String[] args) {
@@ -125,7 +127,7 @@ public class Test extends JFrame {
 		textField_15.setColumns(10);
 		
 		JLabel lblPk = new JLabel("PK");
-		lblPk.setBounds(25, 158, 25, 15);
+		lblPk.setBounds(25, 162, 25, 15);
 		panel.add(lblPk);
 
 		JToolBar toolBar_1 = new JToolBar();
@@ -182,7 +184,7 @@ public class Test extends JFrame {
 				int LBag = Integer.parseInt(textField_6.getText());
 				int num_it = Integer.parseInt(textField_7.getText());
 				int num_tabu = Integer.parseInt(textField_8.getText());
-				int pk = Integer.parseInt(textField_15.getText());
+				int pk = Integer.parseInt(textField_16.getText());
 				
 				Permutation perm = new Permutation(LAlg, LBag, pk);
 				TabuSearchAlgorithms TS = new TabuSearchAlgorithms(matrix_, perm, num_it, num_tabu);
@@ -192,6 +194,15 @@ public class Test extends JFrame {
 		});
 		btnWykonaj.setBounds(117, 240, 117, 25);
 		panel_1.add(btnWykonaj);
+		
+		textField_16 = new JTextField();
+		textField_16.setBounds(110, 167, 114, 19);
+		panel_1.add(textField_16);
+		textField_16.setColumns(10);
+		
+		JLabel lblPk_1 = new JLabel("PK");
+		lblPk_1.setBounds(39, 169, 70, 15);
+		panel_1.add(lblPk_1);
 
 		JToolBar toolBar_2 = new JToolBar();
 		tabbedPane.addTab("Ant colony", null, toolBar_2, null);
@@ -245,7 +256,7 @@ public class Test extends JFrame {
 				int num_it = Integer.parseInt(textField_13.getText());
 				double p = Double.parseDouble(textField_12.getText());
 				double betha = Double.parseDouble(textField_14.getText());
-				int pK = Integer.parseInt(textField_15.getText());
+				int pK = Integer.parseInt(textField_17.getText());
 				AntColonyOptimizationAlgorithms AC = new AntColonyOptimizationAlgorithms(pK, LAlg, LBag, num_ants, p, num_it, matrix_, betha);
 				AC.calculate();
 			}
@@ -276,6 +287,15 @@ public class Test extends JFrame {
 		JLabel lblNewLabel_9 = new JLabel("betha");
 		lblNewLabel_9.setBounds(40, 169, 70, 15);
 		panel_2.add(lblNewLabel_9);
+		
+		textField_17 = new JTextField();
+		textField_17.setBounds(116, 198, 114, 19);
+		panel_2.add(textField_17);
+		textField_17.setColumns(10);
+		
+		JLabel lblPk_2 = new JLabel("PK");
+		lblPk_2.setBounds(40, 200, 70, 15);
+		panel_2.add(lblPk_2);
 
 		JButton btnLoadMatrix = new JButton("Load matrix");
 		btnLoadMatrix.setBounds(138, 17, 117, 25);

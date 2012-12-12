@@ -1,4 +1,7 @@
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 
 
@@ -37,7 +40,19 @@ public class TabuSearchAlgorithms implements IOptimizationAlgorithms, IObservabl
 				tabuList.removeFirst();
 			}
 		}
-		
+		try {
+			PrintWriter printWriter = new PrintWriter(new File("wyniktabusearch.txt"));
+			
+			String string = new String();
+			for(int z = 0; z < 16; z++){
+				for(int j = 0; j < permutation_.getPermutation().get(z).size(); j++)
+				string += "{" + z + " " + permutation_.getPermutation().get(z).get(j) + "} ";
+			}
+			string += " " + bestResult_;
+			printWriter.print(string);
+			printWriter.close();
+		} catch (IOException e) {
+		}
 	}
 
 	

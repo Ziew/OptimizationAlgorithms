@@ -1,4 +1,7 @@
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -31,7 +34,6 @@ public class AntColonyOptimizationAlgorithms implements IOptimizationAlgorithms,
 		observators_.add(new NewResultObserver());
 		pK_ = pK;
 		permutation_ = new Permutation(numberOfElements, numberOfValues, pK);
-
 	}
 
 	public void calculate() {
@@ -42,14 +44,6 @@ public class AntColonyOptimizationAlgorithms implements IOptimizationAlgorithms,
 		for(int j = 0; j < numberOfIteration_ ; j++){
 			for(int i = 0; i < numberOfAnts_; i++){
 				ants_.get(i).generatePermutation(cPI_);
-				for(int a = 0; a < 16; a ++){
-					for(int b = 0; b < 30 ; b++){
-
-						//System.out.println(a + " " + b + " " + cPI_.getPointsInformation(a, b).getProbability());
-
-
-					}
-				}
 				if(j == 0){
 					cPI_.generate();
 				}
@@ -64,22 +58,30 @@ public class AntColonyOptimizationAlgorithms implements IOptimizationAlgorithms,
 			cPF_.calculateFeromon(ants_);
 			cPF_.calculateProbability();
 		}
+		try {
+			PrintWriter printWriter = new PrintWriter(new File("wynikantcolony.txt"));
+			
+			String string = new String();
+			for(int z = 0; z < 16; z++){
+				for(int j = 0; j < permutation_.getPermutation().get(z).size(); j++)
+				string += "{" + z + " " + permutation_.getPermutation().get(z).get(j) + "} ";
+			}
+			string += " " + bestResult_;
+			printWriter.print(string);
+			printWriter.close();
+		} catch (IOException e) {
+		}
 	}
-
 
 	public Permutation getPermutation() {
 
 		return permutation_;
 	}
 
-
 	public double getBestResult() {
 
 		return bestResult_;
 	}
-
-
-
 
 	public void notifyall() {
 		for(IObservator o : observators_){
