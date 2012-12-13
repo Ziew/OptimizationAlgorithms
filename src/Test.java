@@ -76,11 +76,16 @@ public class Test extends JFrame {
 				int temp = Integer.parseInt(textField_2.getText());
 				double n = Double.parseDouble(textField_3.getText());
 				int num_it = Integer.parseInt(textField_4.getText());
-				int PK = Integer.parseInt(textField_15.getText());
+				int pK = Integer.parseInt(textField_15.getText());
 
-				Permutation perm = new Permutation(LAlg, LBag ,PK);
+				Permutation perm = new Permutation(LAlg, LBag ,pK);
 				IOptimizationAlgorithms SA = new SimulatedAnnealing(matrix_, perm, temp, num_it, n);
-				SA.calculate();
+				if(LAlg*LBag < pK){
+					System.out.println("Za male PK!!!");
+				}
+				else{
+					SA.calculate();
+				}
 			}
 		});
 		btnNewButton.setBounds(119, 240, 117, 25);
@@ -119,13 +124,13 @@ public class Test extends JFrame {
 		JLabel lblNumit = new JLabel("num_it");
 		lblNumit.setBounds(25, 131, 49, 15);
 		panel.add(lblNumit);
-		
+
 		textField_15 = new JTextField();
 		textField_15.setText("10");
 		textField_15.setBounds(79, 160, 114, 19);
 		panel.add(textField_15);
 		textField_15.setColumns(10);
-		
+
 		JLabel lblPk = new JLabel("PK");
 		lblPk.setBounds(25, 162, 25, 15);
 		panel.add(lblPk);
@@ -184,22 +189,28 @@ public class Test extends JFrame {
 				int LBag = Integer.parseInt(textField_6.getText());
 				int num_it = Integer.parseInt(textField_7.getText());
 				int num_tabu = Integer.parseInt(textField_8.getText());
-				int pk = Integer.parseInt(textField_16.getText());
+				int pK = Integer.parseInt(textField_16.getText());
+
+				Permutation perm = new Permutation(LAlg, LBag, pK);
 				
-				Permutation perm = new Permutation(LAlg, LBag, pk);
-				TabuSearchAlgorithms TS = new TabuSearchAlgorithms(matrix_, perm, num_it, num_tabu);
-				TS.calculate();
-				
+				if(LAlg*LBag < pK){
+					System.out.println("Za male PK!!!");
+				}
+				else{
+					IOptimizationAlgorithms TS = new TabuSearchAlgorithms(matrix_, perm, num_it, num_tabu);
+					TS.calculate();
+				}
+
 			}
 		});
 		btnWykonaj.setBounds(117, 240, 117, 25);
 		panel_1.add(btnWykonaj);
-		
+
 		textField_16 = new JTextField();
 		textField_16.setBounds(110, 167, 114, 19);
 		panel_1.add(textField_16);
 		textField_16.setColumns(10);
-		
+
 		JLabel lblPk_1 = new JLabel("PK");
 		lblPk_1.setBounds(39, 169, 70, 15);
 		panel_1.add(lblPk_1);
@@ -257,8 +268,13 @@ public class Test extends JFrame {
 				double p = Double.parseDouble(textField_12.getText());
 				double betha = Double.parseDouble(textField_14.getText());
 				int pK = Integer.parseInt(textField_17.getText());
-				AntColonyOptimizationAlgorithms AC = new AntColonyOptimizationAlgorithms(pK, LAlg, LBag, num_ants, p, num_it, matrix_, betha);
-				AC.calculate();
+				IOptimizationAlgorithms AC = new AntColonyOptimizationAlgorithms(pK, LAlg, LBag, num_ants, p, num_it, matrix_, betha);
+				if(LAlg*LBag < pK){
+					System.out.println("Za male PK!!!");
+				}
+				else{
+					AC.calculate();
+				}
 			}
 		});
 		btnNewButton_1.setBounds(116, 240, 117, 25);
@@ -287,12 +303,12 @@ public class Test extends JFrame {
 		JLabel lblNewLabel_9 = new JLabel("betha");
 		lblNewLabel_9.setBounds(40, 169, 70, 15);
 		panel_2.add(lblNewLabel_9);
-		
+
 		textField_17 = new JTextField();
 		textField_17.setBounds(116, 198, 114, 19);
 		panel_2.add(textField_17);
 		textField_17.setColumns(10);
-		
+
 		JLabel lblPk_2 = new JLabel("PK");
 		lblPk_2.setBounds(40, 200, 70, 15);
 		panel_2.add(lblPk_2);
